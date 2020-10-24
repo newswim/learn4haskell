@@ -563,8 +563,8 @@ Casual reminder about adding top-level type signatures for all functions :)
 -}
 mid :: Ord n => n -> n -> n -> n
 mid x y z
-  | (y <= x) && (y <= z) = min x z
-  | (y >= x) && (y >= z) = max x z
+  | (x >= y) && (y <= z) = min x z
+  | (x <= y) && (y >= z) = max x z
   | otherwise = y
 
 {- |
@@ -677,12 +677,13 @@ aren't ready for this boss yet!
 -}
 
 -- firstDigit :: Int -> Int
-firstDigit :: Integral a => a -> Int
+-- firstDigit :: Integral a => a -> Int
+firstDigit :: Integral t => t -> t
 firstDigit n
-  | m >= 10 = firstDigit m
-  | m < 10 = m
+  | x == 0 = y
+  | otherwise = firstDigit x
   where
-    m = floor $ toRational ( abs n ) / 10
+    (x, y) = divMod (abs n) 10
 
 
 {-
