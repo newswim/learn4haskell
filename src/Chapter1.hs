@@ -493,9 +493,7 @@ Implement a function that returns the last digit of a given number.
   whether it works for you!
 -}
 lastDigit :: Integral a => a -> a
-lastDigit n = mod num 10
-  where
-    num = if n >= 0 then n else negate n
+lastDigit n = mod (abs n) 10
 
 
 {- |
@@ -651,11 +649,10 @@ specifying complex expressions.
 -}
 
 sumLast2 :: Integral a => a -> a
-sumLast2 n = (+) l s
+sumLast2 n = x + y
   where
-    n' = abs n
-    l  = lastDigit n'
-    s  = div (mod n' 100) 10
+    lastTwo = mod ( abs n ) 100
+    (x, y)  = divMod lastTwo 10
 
 
 {- |
