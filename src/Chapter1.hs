@@ -525,10 +525,10 @@ branches because it is an expression and it must always return some value.
   satisfying the check will be returned and, therefore, evaluated.
 -}
 closestToZero :: Int -> Int -> Int
-closestToZero x y = min xx yy
+closestToZero x y = if x' <= y' then x else y
   where
-    xx = abs x
-    yy = abs y
+    x' = abs x
+    y' = abs y
 
 
 {- |
@@ -676,8 +676,7 @@ You need to use recursion in this task. Feel free to return to it later, if you
 aren't ready for this boss yet!
 -}
 
--- firstDigit :: Int -> Int
--- firstDigit :: Integral a => a -> Int
+
 firstDigit :: Integral t => t -> t
 firstDigit n
   | x == 0 = y
