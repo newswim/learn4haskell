@@ -209,31 +209,33 @@ So, the output in this example means that 'False' has type 'Bool'.
 > Try to guess first and then compare your expectations with GHCi output
 
 >>> :t True
-Bool
+True :: Bool
+
 >>> :t 'a'
-Char
+'a' :: Char
+
 >>> :t 42
-Num p => p
+42 :: Num p => p
 
 A pair of boolean and char:
 >>> :t (True, 'x')
-(Bool, Char)
+(True, 'x') :: (Bool, Char)
 
 Boolean negation:
 >>> :t not
-Bool -> Bool
+not :: Bool -> Bool
 
 Boolean 'and' operator:
 >>> :t (&&)
-Bool -> Bool -> Bool
+(&&) :: Bool -> Bool -> Bool
 
 Addition of two numbers:
 >>> :t (+)
-Num a => a -> a -> a
+(+) :: Num a => a -> a -> a
 
 Maximum of two values:
 >>> :t max
-Ord a => a -> a -> a
+max :: Ord a => a -> a -> a
 
 You might not understand each type at this moment, but don't worry! You've only
 started your Haskell journey. Types will become your friends soon.
@@ -316,7 +318,7 @@ True
 False
 
 >>> 10 < 20 || 20 < 5
-False
+True
 
 >>> 2 ^ 10  -- power
 1024
