@@ -361,8 +361,6 @@ subList start end list
   | diff  < 0 = []
   | otherwise = take (diff + 1) (drop start list)
   where
-    -- TODO: this is failing when "range is negative";
-    -- I'm not sure if this means the start is negative, or end, or both.
     diff = end - start
 
 {- |
@@ -655,16 +653,19 @@ Write a function that takes elements of a list only on even positions.
 [2,3,4]
 -}
 takeEven :: [a] -> [a]
-takeEven list = go 0 list
+takeEven list = go True list
   where
-    go _   [    ] = []
-    go acc (x:xs) =
-      if isEven acc 
-      then x : go (acc + 1) xs
-      else     go (acc + 1) xs
+    go _     []     = []
+    go True  (x:xs) = x : go False xs
+    go False (_:xs) = go True xs
 
-isEven :: Int -> Bool
-isEven n = mod n 2 == 0
+takeEven' :: [a] -> [a]
+-- empty list
+takeEven' []       = []
+-- list with only one element
+takeEven' [x]      = [x]
+-- list with at least two elements
+takeEven' (x:_:xs) = x : takeEven' xs
 
 {- |
 =🛡= Higher-order functions
@@ -906,9 +907,15 @@ and reverses it.
   cheating!
 -}
 rewind :: [a] -> [a]
-rewind []     = []
-rewind (x:xs) = rewind xs ++ [x]
+rewind  = go []
+  where
+    -- `flip` reverses the order of function arguments
+    -- `foldl` is like foldr, but "replaces the operator" starting at the end of the list
+    go = foldl (flip (:))
 
+inefficientRewind :: [a] -> [a]
+inefficientRewind []     = []
+inefficientRewind (x:xs) = rewind xs ++ [x]
 
 {-
 You did it! Now it is time to open pull request with your changes
