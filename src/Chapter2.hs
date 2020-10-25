@@ -890,7 +890,9 @@ list.
 rotate :: Int -> [a] -> [a]
 rotate n xs 
   | n < 0     = []
-  | otherwise = take (length xs) $ drop n $ cycle xs
+  | otherwise = take lxs $ drop (mod n 9) $ cycle xs
+  where
+    lxs = length xs
 
 {- |
 =💣= Task 12*
